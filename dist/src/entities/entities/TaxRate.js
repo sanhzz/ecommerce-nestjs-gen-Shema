@@ -1,0 +1,105 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TaxRate = void 0;
+const typeorm_1 = require("typeorm");
+const TaxRegion_1 = require("./TaxRegion");
+const TaxRateRule_1 = require("./TaxRateRule");
+let TaxRate = class TaxRate {
+    id;
+    rate;
+    code;
+    name;
+    isDefault;
+    isCombinable;
+    taxRegionId;
+    metadata;
+    createdAt;
+    updatedAt;
+    createdBy;
+    deletedAt;
+    taxRegion;
+    taxRateRules;
+};
+exports.TaxRate = TaxRate;
+__decorate([
+    (0, typeorm_1.Column)("text", { primary: true, name: "id" }),
+    __metadata("design:type", String)
+], TaxRate.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)("real", { name: "rate", nullable: true, precision: 24 }),
+    __metadata("design:type", Object)
+], TaxRate.prototype, "rate", void 0);
+__decorate([
+    (0, typeorm_1.Column)("text", { name: "code" }),
+    __metadata("design:type", String)
+], TaxRate.prototype, "code", void 0);
+__decorate([
+    (0, typeorm_1.Column)("text", { name: "name" }),
+    __metadata("design:type", String)
+], TaxRate.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.Column)("boolean", { name: "is_default", default: () => "false" }),
+    __metadata("design:type", Boolean)
+], TaxRate.prototype, "isDefault", void 0);
+__decorate([
+    (0, typeorm_1.Column)("boolean", { name: "is_combinable", default: () => "false" }),
+    __metadata("design:type", Boolean)
+], TaxRate.prototype, "isCombinable", void 0);
+__decorate([
+    (0, typeorm_1.Column)("text", { name: "tax_region_id" }),
+    __metadata("design:type", String)
+], TaxRate.prototype, "taxRegionId", void 0);
+__decorate([
+    (0, typeorm_1.Column)("jsonb", { name: "metadata", nullable: true }),
+    __metadata("design:type", Object)
+], TaxRate.prototype, "metadata", void 0);
+__decorate([
+    (0, typeorm_1.Column)("timestamp with time zone", {
+        name: "created_at",
+        default: () => "now()",
+    }),
+    __metadata("design:type", Date)
+], TaxRate.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.Column)("timestamp with time zone", {
+        name: "updated_at",
+        default: () => "now()",
+    }),
+    __metadata("design:type", Date)
+], TaxRate.prototype, "updatedAt", void 0);
+__decorate([
+    (0, typeorm_1.Column)("text", { name: "created_by", nullable: true }),
+    __metadata("design:type", Object)
+], TaxRate.prototype, "createdBy", void 0);
+__decorate([
+    (0, typeorm_1.Column)("timestamp with time zone", { name: "deleted_at", nullable: true }),
+    __metadata("design:type", Object)
+], TaxRate.prototype, "deletedAt", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => TaxRegion_1.TaxRegion, (taxRegion) => taxRegion.taxRate, {
+        onDelete: "CASCADE",
+    }),
+    (0, typeorm_1.JoinColumn)([{ name: "tax_region_id", referencedColumnName: "id" }]),
+    __metadata("design:type", TaxRegion_1.TaxRegion)
+], TaxRate.prototype, "taxRegion", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => TaxRateRule_1.TaxRateRule, (taxRateRule) => taxRateRule.taxRate),
+    __metadata("design:type", Array)
+], TaxRate.prototype, "taxRateRules", void 0);
+exports.TaxRate = TaxRate = __decorate([
+    (0, typeorm_1.Index)("IDX_tax_rate_deleted_at", ["deletedAt"], {}),
+    (0, typeorm_1.Index)("tax_rate_pkey", ["id"], { unique: true }),
+    (0, typeorm_1.Index)("IDX_single_default_region", ["taxRegionId"], { unique: true }),
+    (0, typeorm_1.Index)("IDX_tax_rate_tax_region_id", ["taxRegionId"], {}),
+    (0, typeorm_1.Entity)("tax_rate", { schema: "public" })
+], TaxRate);
+//# sourceMappingURL=TaxRate.js.map

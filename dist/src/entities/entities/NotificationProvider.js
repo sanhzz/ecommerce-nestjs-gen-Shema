@@ -1,0 +1,74 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NotificationProvider = void 0;
+const typeorm_1 = require("typeorm");
+const Notification_1 = require("./Notification");
+let NotificationProvider = class NotificationProvider {
+    id;
+    handle;
+    name;
+    isEnabled;
+    channels;
+    createdAt;
+    updatedAt;
+    deletedAt;
+    notifications;
+};
+exports.NotificationProvider = NotificationProvider;
+__decorate([
+    (0, typeorm_1.Column)("text", { primary: true, name: "id" }),
+    __metadata("design:type", String)
+], NotificationProvider.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)("text", { name: "handle" }),
+    __metadata("design:type", String)
+], NotificationProvider.prototype, "handle", void 0);
+__decorate([
+    (0, typeorm_1.Column)("text", { name: "name" }),
+    __metadata("design:type", String)
+], NotificationProvider.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.Column)("boolean", { name: "is_enabled", default: () => "true" }),
+    __metadata("design:type", Boolean)
+], NotificationProvider.prototype, "isEnabled", void 0);
+__decorate([
+    (0, typeorm_1.Column)("text", { name: "channels", array: true, default: () => "'{}'[]" }),
+    __metadata("design:type", Array)
+], NotificationProvider.prototype, "channels", void 0);
+__decorate([
+    (0, typeorm_1.Column)("timestamp with time zone", {
+        name: "created_at",
+        default: () => "now()",
+    }),
+    __metadata("design:type", Date)
+], NotificationProvider.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.Column)("timestamp with time zone", {
+        name: "updated_at",
+        default: () => "now()",
+    }),
+    __metadata("design:type", Date)
+], NotificationProvider.prototype, "updatedAt", void 0);
+__decorate([
+    (0, typeorm_1.Column)("timestamp with time zone", { name: "deleted_at", nullable: true }),
+    __metadata("design:type", Object)
+], NotificationProvider.prototype, "deletedAt", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => Notification_1.Notification, (notification) => notification.provider),
+    __metadata("design:type", Array)
+], NotificationProvider.prototype, "notifications", void 0);
+exports.NotificationProvider = NotificationProvider = __decorate([
+    (0, typeorm_1.Index)("IDX_notification_provider_deleted_at", ["deletedAt"], {}),
+    (0, typeorm_1.Index)("notification_provider_pkey", ["id"], { unique: true }),
+    (0, typeorm_1.Entity)("notification_provider", { schema: "public" })
+], NotificationProvider);
+//# sourceMappingURL=NotificationProvider.js.map

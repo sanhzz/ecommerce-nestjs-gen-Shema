@@ -1,0 +1,35 @@
+import { OrderAddress } from "./OrderAddress";
+import { OrderChange } from "./OrderChange";
+import { OrderCreditLine } from "./OrderCreditLine";
+import { OrderItem } from "./OrderItem";
+import { OrderShipping } from "./OrderShipping";
+import { OrderSummary } from "./OrderSummary";
+import { OrderTransaction } from "./OrderTransaction";
+export declare class Order {
+    id: string;
+    regionId: string | null;
+    displayId: number | null;
+    customerId: string | null;
+    version: number;
+    salesChannelId: string | null;
+    status: "pending" | "completed" | "draft" | "archived" | "canceled" | "requires_action";
+    isDraftOrder: boolean;
+    email: string | null;
+    currencyCode: string;
+    shippingAddressId: string | null;
+    billingAddressId: string | null;
+    noNotification: boolean | null;
+    metadata: object | null;
+    createdAt: Date;
+    updatedAt: Date;
+    deletedAt: Date | null;
+    canceledAt: Date | null;
+    billingAddress: OrderAddress;
+    shippingAddress: OrderAddress;
+    orderChanges: OrderChange[];
+    orderCreditLines: OrderCreditLine[];
+    orderItems: OrderItem[];
+    orderShippings: OrderShipping[];
+    orderSummaries: OrderSummary[];
+    orderTransactions: OrderTransaction[];
+}

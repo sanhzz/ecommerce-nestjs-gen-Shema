@@ -1,0 +1,35 @@
+import { OrderLineItem } from "./OrderLineItem";
+import { Order } from "./Order";
+export declare class OrderItem {
+    id: string;
+    orderId: string;
+    version: number;
+    itemId: string;
+    quantity: string;
+    rawQuantity: object;
+    fulfilledQuantity: string;
+    rawFulfilledQuantity: object;
+    shippedQuantity: string;
+    rawShippedQuantity: object;
+    returnRequestedQuantity: string;
+    rawReturnRequestedQuantity: object;
+    returnReceivedQuantity: string;
+    rawReturnReceivedQuantity: object;
+    returnDismissedQuantity: string;
+    rawReturnDismissedQuantity: object;
+    writtenOffQuantity: string;
+    rawWrittenOffQuantity: object;
+    metadata: object | null;
+    createdAt: Date;
+    updatedAt: Date;
+    deletedAt: Date | null;
+    deliveredQuantity: string;
+    rawDeliveredQuantity: object;
+    unitPrice: string | null;
+    rawUnitPrice: object | null;
+    compareAtUnitPrice: string | null;
+    rawCompareAtUnitPrice: object | null;
+    item: OrderLineItem;
+    order: Order;
+    orderLineItems: OrderLineItem[];
+}

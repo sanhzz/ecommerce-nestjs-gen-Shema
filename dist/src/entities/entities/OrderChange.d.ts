@@ -1,0 +1,30 @@
+import { Order } from "./Order";
+import { OrderChangeAction } from "./OrderChangeAction";
+export declare class OrderChange {
+    id: string;
+    orderId: string;
+    version: number;
+    description: string | null;
+    status: string;
+    internalNote: string | null;
+    createdBy: string | null;
+    requestedBy: string | null;
+    requestedAt: Date | null;
+    confirmedBy: string | null;
+    confirmedAt: Date | null;
+    declinedBy: string | null;
+    declinedReason: string | null;
+    metadata: object | null;
+    declinedAt: Date | null;
+    canceledBy: string | null;
+    canceledAt: Date | null;
+    createdAt: Date;
+    updatedAt: Date;
+    changeType: string | null;
+    deletedAt: Date | null;
+    returnId: string | null;
+    claimId: string | null;
+    exchangeId: string | null;
+    order: Order;
+    orderChangeActions: OrderChangeAction[];
+}
