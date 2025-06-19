@@ -1,0 +1,28 @@
+service: nestjs-graphql-ecommerce
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-southeast-1 
+  environment:
+    NODE_ENV: production
+    POSTGRES_HOST: ${env:POSTGRES_HOST}
+    POSTGRES_PORT: ${env:POSTGRES_PORT}
+    POSTGRES_USER: ${env:POSTGRES_USER}
+    POSTGRES_PASSWORD: ${env:POSTGRES_PASSWORD}
+    POSTGRES_DB: ${env:POSTGRES_DB}
+
+functions:
+  graphql:
+    handler: dist/lambda.handler
+    events:
+      - http:
+          path: graphql
+          method: post
+      - http:
+          path: graphql
+          method: get
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
